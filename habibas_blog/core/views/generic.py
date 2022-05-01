@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView
 
 from habibas_blog.core.models import Post
@@ -22,5 +23,10 @@ class SinglePostView(DetailView):
 
     # def get_queryset(self):
     #     return super().get_queryset().prefetch_related('tagged_posts')
+
+
+
+def build_elements_page(request):
+    return render(request, 'elements.html')
 
 

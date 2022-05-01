@@ -24,9 +24,9 @@ class UserRegistrationView(CreateView):
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
 
-    # this method needs to be overrided
     def get_success_url(self):
         return reverse_lazy('home')
+
 
 @login_required
 def build_logout(request):
