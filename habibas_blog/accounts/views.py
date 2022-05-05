@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
 
-from habibas_blog.accounts.forms import UserRegistrationForm
+from habibas_blog.accounts.forms import UserRegistrationForm, ProfileCreateForm
 from habibas_blog.accounts.models import Profile
 
 
@@ -45,3 +45,17 @@ class ProfileDetailsView(DetailView):
     template_name = 'accounts/profile-details.html'
     model = Profile
     context_object_name = 'profile'
+
+
+
+class ProfileCreateView(CreateView):
+    template_name = 'accounts/profile-create.html'
+    model = Profile
+    form_class = ProfileCreateForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+

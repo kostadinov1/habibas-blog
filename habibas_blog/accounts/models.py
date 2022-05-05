@@ -1,7 +1,8 @@
 
 # from cloudinary import models as cloudinary_models
-from django.contrib.auth import models as auth_models
+from django.contrib.auth import models as auth_models, get_user_model
 from django.db import models
+from django.db.models.signals import post_save
 
 from habibas_blog.accounts.managers import AppUsersManager
 
@@ -10,6 +11,7 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
     email = models.EmailField(unique=True, null=False, blank=False,)
     date_joined = models.DateTimeField(auto_now_add=True,)
 
+    has_profile = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False,)
     is_active = models.BooleanField(default=True)
@@ -18,6 +20,7 @@ class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
 
 class Profile(models.Model):
     FIRST_NAME_MIN_LENGTH = 2
@@ -41,5 +44,4 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
-
 
