@@ -6,7 +6,6 @@ UserModel = get_user_model()
 
 
 class UserRegistrationForm(UserCreationForm):
-
     class Meta:
         model = UserModel
         fields = ('email',)

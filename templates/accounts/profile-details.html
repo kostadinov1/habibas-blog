@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% load static %}
+{% block main-content %}
+<link rel="stylesheet" href="{% static "/assets/css/profile-details.css" %}" />
 
-</body>
-</html>
+ <body>
+    <div class="profile-card">
+      <div class="top-section">
+        <i class="message fas fa-envelope"></i>
+        <i class="notif fas fa-bell"></i>
+        <div class="pic">
+          <img src="{{ profile.image_url }}" alt="">
+        </div>
+        <div class="name">{{ profile }}</div>
+        <div class="tag">{{ profile.user.email }}</div>
+      </div>
+
+      <div class="bottom-section">
+        <div class="social-media">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fas fa-link"></i></a>
+        </div>
+
+        <div class="videos">60+ <span>Posts</span></div>
+        <div class="border"></div>
+        <div class="subscribers">200+ <span>Web Subscribers</span></div>
+        <div class="border"></div>
+        <div class="views">500k <span>Views</span></div>
+      </div>
+    </div>
+  </body>
+
+{% endblock %}

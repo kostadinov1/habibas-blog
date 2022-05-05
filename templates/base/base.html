@@ -31,6 +31,8 @@
 								<li><a href="{% url 'register' %}">Register</a></li>
                                 {% else %}
 								<li><a href="{% url 'logout' %}">Logout</a></li>
+       							<li><a href="{% url 'profile-details' request.user.id %}">Profile</a></li>
+
                                 {% endif %}
 							</ul>
 						</nav>

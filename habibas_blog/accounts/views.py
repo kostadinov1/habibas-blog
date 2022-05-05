@@ -1,14 +1,16 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from habibas_blog.accounts.forms import UserRegistrationForm
+from habibas_blog.accounts.models import Profile
 
 
 class UserRegistrationView(CreateView):
@@ -36,3 +38,10 @@ def build_logout(request):
 
 class ChangePasswordView(PasswordChangeView, LoginRequiredMixin):
     success_url = reverse_lazy('login')
+
+
+
+class ProfileDetailsView(DetailView):
+    template_name = 'accounts/profile-details.html'
+    model = Profile
+    context_object_name = 'profile'

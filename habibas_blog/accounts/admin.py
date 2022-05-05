@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 
 from habibas_blog.accounts.forms import UserRegistrationForm, UserChangeAdminForm
+from habibas_blog.accounts.models import Profile
 
 CustomUserModel = get_user_model()
 
@@ -29,8 +30,8 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUserModel, CustomUserAdmin)
 
-#
-# @admin.register(Profile)
-# class ProfileAdmin(admin.ModelAdmin):
-#     pass
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass
 
