@@ -2,6 +2,7 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block main-content %}
+        <link rel="stylesheet" href="{% static "assets/css/comment.css" %}">
 				<!-- Menu -->
 					<section id="menu">
 
@@ -65,9 +66,12 @@
 										<time class="published" datetime="2015-11-01">November 1, 2015</time>
 										<a href="#" class="author"><span class="name">Jane Doe</span><img src="{% static "/images/avatar.jpg" %}" alt="" /></a>
 									</div>
-								</header>
+                                </header>
+
+
 								<a href="{% url 'single blog' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
 								<p>{{ post.content }} </p>
+
 								<footer>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
@@ -76,7 +80,38 @@
 									</ul>
 								</footer>
 							</article>
+                        <!-- ADD COMMENT -->
+							<article class="post">
+                                <div class="title">
+                                    <h2> Add a Comment</h2>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-6">
+                                   <textarea type="text" class="input" placeholder="Write a comment" v-model="newItem" @keyup.enter="addItem()"></textarea>
+                                   <button v-on:click="addItem()" class='primaryContained float-right' type="submit">Add Comment</button>
+                                </div><!--End Row -->
+                                </div>
+                            </article>
+
+
+                        <!-- ALL COMMENTS -->
+                            <article class="post">
+                                <div class="title">
+                                    <h2> COMMENTS </h2>
+                                </div>
+
+                                {% for comment in comments %}
+                                <div class="row">
+                                    <div class="comment">
+                                    <h4>{{ comment.user_id.profile }}</h4><h5>date: {{ comment.created_on }}</h5>
+                                    <p class="comment-content">{{ comment.content }}</p>
+                                    </div><a href="#" class="icon solid fa-heart">{{ comment.likes }}</a>
+                                </div>
+                               {% endfor %}
+
+                            </article>
 					</div>
+
 
 {% endblock %}

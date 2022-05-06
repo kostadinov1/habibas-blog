@@ -16,10 +16,10 @@ class HomeView(TemplateView):
         return context
 
 
-class SinglePostView(DetailView):
-    model = Post
-    template_name = 'core/single.html'
-    context_object_name = 'post'
+class ContactsView(TemplateView):
+    template_name = 'core/contacts.html'
+
+
 
     # def get_queryset(self):
     #     return super().get_queryset().prefetch_related('tagged_posts')
