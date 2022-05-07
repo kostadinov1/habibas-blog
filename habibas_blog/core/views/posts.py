@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, TemplateView
 
 from habibas_blog.core.forms import CommentForm
-from habibas_blog.core.models import Post, Comment, PostLike
+from habibas_blog.core.models import Post, Comment, PostLike, CommentLike
 
 
 class BlogView(ListView):
@@ -43,7 +43,7 @@ def single_post_view(request, pk):
     }
     return render(request, 'core/single.html', context)
 
-#
+
 def like_post(request, pk):
     post = Post.objects.get(pk=pk)
     like_check = PostLike.objects.filter(user_id=request.user.id)
@@ -51,17 +51,20 @@ def like_post(request, pk):
         like = PostLike.objects.create(user_id=request.user.id, post_id=post.id)
         like.save()
     else:
-        like_disabled = True
         messages.info(request, 'You can Like a Post Only ONCE!')
-
 
     return redirect('single post', post.pk)
 
-def like_comment(request, pk):
 
+def like_comment(request, pk):
     comment = Comment.objects.get(pk=pk)
-    comment.likes += 1
-    comment.save()
+    like_check = CommentLike.objects.filter(user_id=request.user.id, comment_id=comment.id).distinct()
+    if not like_check:
+        like = CommentLike.objects.create(user_id=request.user.id, comment_id=comment.id)
+        like.save()
+    else:
+        messages.info(request, 'You can Like a Post Only ONCE!')
+
     return redirect('single post', comment.post.pk)
 
 

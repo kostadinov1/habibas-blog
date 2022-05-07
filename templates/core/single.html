@@ -120,8 +120,8 @@
                                     <div class="comment">
                                     <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
                                         {% if user.is_authenticated %}
-                                        <a href="{% url 'like comment' comment.pk %}" class="icon solid fa-heart like-button">{{ comment.likes }}</a>
-                                        {% endif %}
+                                        <a href="{% url 'like comment' comment.id %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                                            {% endif %}
                                     <p>{{ comment.content }}</p>
                                     </div>
                                 </div>

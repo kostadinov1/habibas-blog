@@ -4,12 +4,20 @@ from django.db import models
 # Create your models here.
 UserModel = get_user_model()
 
-STATUS = (
-    (0, "Draft"),
-    (1, "Publish")
-)
+
+class BlogOwner(models.Model):
+    first_name = models.CharField(max_length=30,blank=True, null=True)
+    last_name = models.CharField(max_length=30,blank=True, null=True)
+    url_image = models.URLField(blank=True, null=True)
+    local_image = models.ImageField(blank=True, null=True)
+
 
 class Post(models.Model):
+    STATUS = (
+        (0, "Draft"),
+        (1, "Publish")
+    )
+
     title = models.CharField(max_length=200, unique=True)
     catchy_title = models.TextField()
     image_url = models.URLField(blank=True, null=True)
@@ -41,7 +49,6 @@ class PostLike(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
-    likes = models.IntegerField(default=0)
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     user_id = models.ForeignKey(to=UserModel, on_delete=models.CASCADE,)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -50,3 +57,12 @@ class Comment(models.Model):
     class Meta:
         ordering = ['created_on']
 
+    def likes_count(self):
+        likes_count = list(CommentLike.objects.filter(comment_id=self.id))
+        return len(likes_count)
+
+
+class CommentLike(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='comment_likes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    created_on = models.DateTimeField(auto_now_add=True)

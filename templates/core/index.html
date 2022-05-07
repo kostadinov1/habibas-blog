@@ -72,11 +72,11 @@
 								<header>
 									<div class="title">
 										<h2><a href="single.html">{{ post.title }}</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
+										<p>{{ post.catchy_title }}</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2015-11-01">November 1, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="{% static "images/avatar.jpg" %}" alt="" /></a>
+										<time class="published" datetime="2015-11-01">{{ post.created_on }}</time>
+										<a href="#" class="author"><span class="name">Habiba</span><img src="{% static "images/avatar.jpg" %}" alt="" /></a>
 									</div>
 								</header>
 								<a href="{% url 'single post' post.pk %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
@@ -86,9 +86,9 @@
 										<li><a href="{% url 'single post' post.pk %}" class="button large">Details</a></li>
 									</ul>
 									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">{{ post.likes }}</a></li>
-										<li><a href="#" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
+{#										<li><a href="#">General</a></li>#}
+										<li><a href="javascript:void(0)" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+										<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
 									</ul>
 								</footer>
 							</article>
@@ -109,7 +109,7 @@
 							<section id="intro">
 								<a href="#" class="logo"><img src="{% static "images/logo.jpg" %}" alt="" /></a>
 								<header>
-									<h2>Future Imperfect</h2>
+									<h2>Habiba's Blog</h2>
 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
 								</header>
 							</section>
