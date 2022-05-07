@@ -14,27 +14,36 @@
 							<section>
 								<ul class="links">
 									<li>
+										<a href="{% url 'blog' %}">
+											<h3>Blog</h3>
+											<p>Check out my Blog Posts</p>
+										</a>
+									</li>
+                                    {% if user.profile %}
+									<li>
+										<a href="{% url 'profile-details' request.user.id %}">
+											<h3>Profile</h3>
+											<p>Edit Your Profile Details Here</p>
+										</a>
+									</li>
+                                    {% else %}
+									<li>
+										<a href="{% url 'profile-create' %}">
+											<h3>Profile</h3>
+											<p>Create Your profile here</p>
+										</a>
+									</li>
+                                    {% endif %}
+									<li>
 										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+											<h3>About Me</h3>
+											<p>Get to know me better</p>
 										</a>
 									</li>
 									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
+										<a href="{% url 'contacts' %}">
+											<h3>Contacts</h3>
+											<p>Get in touch</p>
 										</a>
 									</li>
 								</ul>
@@ -42,9 +51,15 @@
 
 						<!-- Actions -->
 							<section>
+                                {% if not user.is_authenticated %}
 								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Log In</a></li>
+									<li><a href="{% url 'login' %}" class="button large fit">Log In</a></li>
 								</ul>
+                                {% else %}
+ 								<ul class="actions stacked">
+									<li><a href="{% url 'logout' %}" class="button large fit">Log Out</a></li>
+								</ul>
+                                {% endif %}
 							</section>
 
 					</section>
@@ -68,7 +83,7 @@
 								<p>{{ post.content }}</p>
 								<footer>
 									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
+										<li><a href="{% url 'single post' post.pk %}" class="button large">Details</a></li>
 									</ul>
 									<ul class="stats">
 										<li><a href="#">General</a></li>

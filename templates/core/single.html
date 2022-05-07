@@ -55,7 +55,16 @@
 				<!-- Main -->
 					<div id="main">
 
-						<!-- Post -->
+					<!-- MESSAGE AFTER LIKED ALREADY-->
+                       {% if messages %}
+                        <ul class="messages text-center">
+                            {% for message in messages %}
+                                <h1>{{ message }}</h1>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                            <!-- POST -->
 							<article class="post">
 								<header>
 									<div class="title">
@@ -72,10 +81,14 @@
 								<a href="{% url 'single post' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
 								<p>{{ post.content }} </p>
 
-								<footer>
+                                    <footer>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
-										<li><a href="{% url 'like post' post.pk %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+                                        {% if post_liked %}
+										<li><a href="javascript:void(0)" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'like post' post.pk %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+                                        {% endif %}
 										<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
 									</ul>
 								</footer>

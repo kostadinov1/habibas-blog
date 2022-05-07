@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, TemplateView
@@ -15,6 +16,8 @@ class BlogView(ListView):
 def single_post_view(request, pk):
     post = Post.objects.get(pk=pk)
     comments = list(Comment.objects.filter(post_id=post.pk))
+    like = list(PostLike.objects.filter(post_id=post.pk, user_id=request.user.id))
+    post_liked = len(like) > 0
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -32,6 +35,7 @@ def single_post_view(request, pk):
     else:
         form = CommentForm()
     context = {
+        'post_liked': post_liked,
         'post': post,
         'comments': comments,
         'form': form,
@@ -43,12 +47,14 @@ def single_post_view(request, pk):
 def like_post(request, pk):
     post = Post.objects.get(pk=pk)
     like_check = PostLike.objects.filter(user_id=request.user.id)
-    likes = PostLike.objects.all()
     if not like_check:
         like = PostLike.objects.create(user_id=request.user.id, post_id=post.id)
         like.save()
     else:
-        pass
+        like_disabled = True
+        messages.info(request, 'You can Like a Post Only ONCE!')
+
+
     return redirect('single post', post.pk)
 
 def like_comment(request, pk):
