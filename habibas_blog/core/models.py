@@ -12,7 +12,6 @@ STATUS = (
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     catchy_title = models.TextField()
-    # slug = models.SlugField(max_length=200, unique=True)
     image_url = models.URLField(blank=True, null=True)
     updated_on = models.DateTimeField(auto_now= True)
     content = models.TextField()
@@ -26,6 +25,19 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def likes_count(self):
+        likes_count = list(PostLike.objects.filter(post_id=self.id))
+        return len(likes_count)
+
+    def comments_count(self):
+        comments_count = list(Comment.objects.filter(post_id=self.pk))
+        return len(comments_count)
+
+class PostLike(models.Model):
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='post_likes')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='likes')
+    created_on = models.DateTimeField(auto_now_add=True)
+
 
 class Comment(models.Model):
     content = models.TextField()
@@ -37,3 +49,4 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['created_on']
+

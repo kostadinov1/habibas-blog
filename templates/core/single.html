@@ -75,8 +75,8 @@
 								<footer>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
+										<li><a href="{% url 'like post' post.pk %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+										<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
 									</ul>
 								</footer>
 							</article>

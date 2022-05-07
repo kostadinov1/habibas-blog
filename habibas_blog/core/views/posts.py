@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, TemplateView
 
 from habibas_blog.core.forms import CommentForm
-from habibas_blog.core.models import Post, Comment
+from habibas_blog.core.models import Post, Comment, PostLike
 
 
 class BlogView(ListView):
@@ -14,7 +14,7 @@ class BlogView(ListView):
 
 def single_post_view(request, pk):
     post = Post.objects.get(pk=pk)
-    comments = Comment.objects.filter(post_id=post.pk)
+    comments = list(Comment.objects.filter(post_id=post.pk))
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -40,6 +40,17 @@ def single_post_view(request, pk):
     return render(request, 'core/single.html', context)
 
 #
+def like_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    like_check = PostLike.objects.filter(user_id=request.user.id)
+    likes = PostLike.objects.all()
+    if not like_check:
+        like = PostLike.objects.create(user_id=request.user.id, post_id=post.id)
+        like.save()
+    else:
+        pass
+    return redirect('single post', post.pk)
+
 def like_comment(request, pk):
 
     comment = Comment.objects.get(pk=pk)
