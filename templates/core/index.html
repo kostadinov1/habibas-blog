@@ -64,7 +64,7 @@
 										<a href="#" class="author"><span class="name">Jane Doe</span><img src="{% static "images/avatar.jpg" %}" alt="" /></a>
 									</div>
 								</header>
-								<a href="{% url 'single blog' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
+								<a href="{% url 'single post' post.pk %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
 								<p>{{ post.content }}</p>
 								<footer>
 									<ul class="actions">

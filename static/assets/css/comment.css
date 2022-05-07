@@ -9,6 +9,9 @@
 /*!*.margin-bottom {*!*/
 /*!*	150px;*!*/
 /*!*}*!*/
+.like-button {
+	margin-right: 3em;
+}
 
 .comment {
 	width: 100%;
@@ -17,8 +20,9 @@
 
 
 .comment-content {
-	width: 80%;
-	border: 2px dashed #eee;
+	width: 33%;
+	border: 2px solid #eee;
+	display: inline-block;
 }
 
 /*.commentClicked {*/
