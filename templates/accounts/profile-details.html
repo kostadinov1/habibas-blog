@@ -8,9 +8,16 @@
       <div class="top-section">
         <i class="message fas fa-envelope"></i>
         <i class="notif fas fa-bell"></i>
+{#          {% if profile.image_local %}#}
         <div class="pic">
           <img src="{{ profile.image_url }}" alt="">
         </div>
+{#          {% elif profile.image_url.url %}#}
+{#        <div class="pic">#}
+{#          <img src="{{ profile.image_url }}" alt="">#}
+{#        </div>#}
+{#          {% else %}#}
+{#          {% endif %}#}
         <div class="name">{{ profile }}</div>
         <div class="tag">{{ profile.user.email }}</div>
       </div>

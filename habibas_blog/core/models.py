@@ -11,6 +11,16 @@ class BlogOwner(models.Model):
     url_image = models.URLField(blank=True, null=True)
     local_image = models.ImageField(blank=True, null=True)
 
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+class ImageGallery(models.Model):
+    title = models.CharField(max_length=50)
+    local_image = models.ImageField(blank=True, null=True, upload_to='images')
+    cover_image = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+
 
 class Post(models.Model):
     STATUS = (

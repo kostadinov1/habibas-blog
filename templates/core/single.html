@@ -55,14 +55,6 @@
 				<!-- Main -->
 					<div id="main">
 
-					<!-- MESSAGE AFTER LIKED ALREADY-->
-                       {% if messages %}
-                        <ul class="messages text-center">
-                            {% for message in messages %}
-                                <h1>{{ message }}</h1>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
 
                             <!-- POST -->
 							<article class="post">
@@ -73,14 +65,14 @@
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2015-11-01">{{ post.created_on }}</time>
-										<a href="#" class="author"><span class="name">Habiba</span><img src="{% static "/images/avatar.jpg" %}" alt="" /></a>
+										<a href="#" class="author"><span class="name">{{ owner.first_name }} {{ owner.last_name }}</span><img src="{{ owner.url_image }}" alt="" /></a>
 									</div>
                                 </header>
 
 
 								<a href="{% url 'single post' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
 								<p>{{ post.content }} </p>
-
+                                    {% if user.is_authenticated %}
                                     <footer>
 									<ul class="stats">
 										<li><a href="#">General</a></li>
@@ -92,6 +84,14 @@
 										<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
 									</ul>
 								</footer>
+                                {% else %}
+                                   <footer>
+									<ul class="stats">
+                                        <li><a href="{% url 'login' %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+										<li><a href="{% url 'login' %}" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
+									</ul>
+								</footer>
+                                {% endif %}
 							</article>
                         <!-- ADD COMMENT -->
                             {% if user.is_authenticated %}
@@ -119,9 +119,17 @@
                                 <div class="row">
                                     <div class="comment">
                                     <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
+
                                         {% if user.is_authenticated %}
-                                        <a href="{% url 'like comment' comment.id %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                                            {% if user == comment.user %}
+                                            <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                                            {% else %}
+                                            <a href="{% url 'like comment' comment.id %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
                                             {% endif %}
+                                        {% else %}
+                                        <a href="{% url 'login' %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                                         {% endif %}
+
                                     <p>{{ comment.content }}</p>
                                     </div>
                                 </div>

@@ -71,12 +71,12 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="single.html">{{ post.title }}</a></h2>
+										<h2><a href="{% url 'single post' post.id %}">{{ post.title }}</a></h2>
 										<p>{{ post.catchy_title }}</p>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2015-11-01">{{ post.created_on }}</time>
-										<a href="#" class="author"><span class="name">Habiba</span><img src="{% static "images/avatar.jpg" %}" alt="" /></a>
+										<a href="#" class="author"><span class="name">{{ owner.full_name }}</span><img src="{{ owner.url_image }}" alt="" /></a>
 									</div>
 								</header>
 								<a href="{% url 'single post' post.pk %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
