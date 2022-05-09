@@ -35,7 +35,7 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    # user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-created_on']
@@ -50,6 +50,7 @@ class Post(models.Model):
     def comments_count(self):
         comments_count = list(Comment.objects.filter(post_id=self.pk))
         return len(comments_count)
+
 
 class PostLike(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='post_likes')

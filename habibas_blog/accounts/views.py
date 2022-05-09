@@ -11,6 +11,7 @@ from django.views.generic import CreateView, DetailView
 
 from habibas_blog.accounts.forms import UserRegistrationForm, ProfileCreateForm
 from habibas_blog.accounts.models import Profile
+from habibas_blog.core.models import Comment
 
 
 class UserRegistrationView(CreateView):
@@ -45,6 +46,20 @@ class ProfileDetailsView(DetailView):
     template_name = 'accounts/profile-details.html'
     model = Profile
     context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        comments = Comment.objects.filter(user_id=self.request.user.id)
+        comments_count = len(comments)
+        likes_count = 0
+        for comment in comments:
+           likes_count += comment.likes_count()
+        # likes_count = sum(int(comment.likes_count) for comment in comments)
+
+        context['likes_count'] = likes_count
+        context['comments_count'] = comments_count
+        context['comments'] = comments
+        return context
 
 
 
