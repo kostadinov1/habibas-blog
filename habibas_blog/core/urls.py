@@ -1,6 +1,6 @@
 from django.urls import path
 
-from habibas_blog.core.views.generic import HomeView, build_elements_page, ContactsView
+from habibas_blog.core.views.generic import HomeView, build_elements_page, contacts_view
 from habibas_blog.core.views.posts import BlogView, single_post_view, like_comment, like_post
 
 urlpatterns = (
@@ -10,5 +10,5 @@ urlpatterns = (
     path('like-post/<int:pk>', like_post, name='like post'),
     path('like-comment/<int:pk>', like_comment, name='like comment'),
     path('elements/', build_elements_page, name='elements'),
-    path('contacts/', ContactsView.as_view(), name='contacts'),
+    path('contacts/', contacts_view, name='contacts'),
 )

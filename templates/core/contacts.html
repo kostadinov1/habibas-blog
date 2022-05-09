@@ -5,13 +5,17 @@
     <h2>Please fill this form and I will get back to You shortly.</h2>
 
     <h3>Contact Form</h3>
-	<form method="post" action="#">
+	<form method="post" action="{% url 'contacts' %}">
 		<div class="row gtr-uniform">
 			<div class="col-6 col-12-xsmall">
-				<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />
+                {% csrf_token %}
+                {{ form.name }}
+{#				<input type="text" name="demo-name" id="demo-name" value="" placeholder="Name" />#}
 			</div>
 			<div class="col-6 col-12-xsmall">
-				<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />
+{#				<input type="email" name="demo-email" id="demo-email" value="" placeholder="Email" />#}
+                {{ form.email }}
+
 			</div>
 
 			<div class="col-6 col-12-small">
@@ -19,7 +23,8 @@
 				<label for="demo-human">Not a robot</label>
 			</div>
 			<div class="col-12">
-				<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>
+{#				<textarea name="demo-message" id="demo-message" placeholder="Enter your message" rows="6"></textarea>#}
+                {{ form.message }}
 			</div>
 			<div class="col-12">
 				<ul class="actions">
