@@ -54,6 +54,69 @@
 							</ul>
 						</nav>
 					</header>
+            <section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+									<li>
+										<a href="{% url 'blog' %}">
+											<h3>Blog</h3>
+											<p>Check out my Blog Posts</p>
+										</a>
+									</li>
+                                    {% if user.profile %}
+									<li>
+										<a href="{% url 'profile-details' request.user.id %}">
+											<h3>Profile</h3>
+											<p>Edit Your Profile Details Here</p>
+										</a>
+									</li>
+                                    {% else %}
+									<li>
+										<a href="{% url 'profile-create' %}">
+											<h3>Profile</h3>
+											<p>Create Your profile here</p>
+										</a>
+									</li>
+                                    {% endif %}
+									<li>
+										<a href="#">
+											<h3>About Me</h3>
+											<p>Get to know me better</p>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'contacts' %}">
+											<h3>Contacts</h3>
+											<p>Get in touch</p>
+										</a>
+									</li>
+								</ul>
+							</section>
+
+						<!-- Actions -->
+							<section>
+                                {% if not user.is_authenticated %}
+								<ul class="actions stacked">
+									<li><a href="{% url 'login' %}" class="button large fit">Log In</a></li>
+								</ul>
+                                {% else %}
+ 								<ul class="actions stacked">
+									<li><a href="{% url 'logout' %}" class="button large fit">Log Out</a></li>
+								</ul>
+                                {% endif %}
+							</section>
+
+					</section>
+
                 <!-- Main content -->
 
 {% block main-content %}
@@ -71,6 +134,7 @@
 	</ul>
 	<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
 </section>
+
         </div>
 
 		<!-- Scripts -->
