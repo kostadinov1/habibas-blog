@@ -15,6 +15,15 @@ class BlogOwner(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
+class OwnerArticle(models.Model):
+    title = models.CharField(max_length=50)
+    image = models.URLField()
+    cover_image = models.BooleanField(default=False)
+    right = models.BooleanField(default=True)
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+
 class ImageGallery(models.Model):
     title = models.CharField(max_length=50)
     local_image = models.ImageField(blank=True, null=True, upload_to='images')

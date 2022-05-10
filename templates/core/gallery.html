@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block main-content %}
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/gallery.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "assets/css/lightbox.min.css" %}">
+    <script src="{% static "assets/js/lightbox-plus-jquery.min.js" %}"></script>
+
+<section>
+	<h3>My Image Gallery</h3>
+	<h4>Personal Album</h4>
+
+	<div class="box alt gallery">
+		<div class="row gtr-uniform">
+            {% if cover_image %}
+        	<div class="col-12"><span class="image fit"><img src="{{ cover_image.url }}" alt="" /></span></div>
+            {% endif %}
+            {% if images %}
+
+            {% for image in images %}
+			    <div class="col-4" ><a  href="{{ image.local_image.url }}" data-lightbox="mygallery" data-title="{{ image.title }}" class="image fit"><img src="{{ image.local_image.url }}" alt="" /></a></div>
+
+            {% endfor %}
+                    	<ul class="actions pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1" class="button large next">&laquo; first </a>
+                                    <a href="?page={{ page_obj.previous_page_number }}" class="button large previous">previous</a>
+                                {% endif %}
+
+                                <span class="current">
+                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                                </span>
+
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}" class="button large next">next</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}" class="button large next">last &raquo;</a>
+                                {% endif %}
+                            </span>
+							</ul>
+            {% endif %}
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}

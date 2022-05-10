@@ -25,7 +25,7 @@
 							<ul>
 								<li><a href="{% url 'home' %}">Home</a></li>
 								<li><a href="{% url 'blog' %}">Blog</a></li>
-                                <li><a href="#">About</a></li>
+                                <li><a href="{% url 'gallery' %}">Gallery</a></li>
 								<li><a href="{% url 'contacts' %}">Contacts</a></li>
                                 {% if not user.is_authenticated %}
 								<li><a href="{% url 'login' %}">Login</a></li>
@@ -88,9 +88,9 @@
 									</li>
                                     {% endif %}
 									<li>
-										<a href="#">
-											<h3>About Me</h3>
-											<p>Get to know me better</p>
+										<a href="{% url 'gallery' %}">
+											<h3>Gallery</h3>
+											<p>Have a look at my Gallery</p>
 										</a>
 									</li>
 									<li>
