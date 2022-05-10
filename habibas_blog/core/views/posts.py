@@ -73,6 +73,7 @@ def like_comment(request, pk):
         pass
     return redirect('single post', comment.post.pk)
 
+# self.object.post.id ????
 
 # TODO HOW TO GET THE PK OF THE REQUESTED OBJECT IN DetailView ----> ?!?!?!
 # class SinglePostView(DetailView):

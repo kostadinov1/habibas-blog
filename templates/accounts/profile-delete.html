@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base/base.html' %}
+{% block main-content %}
+    <div class="row">
+       <div class="col-6">
+        <h3>Delete Your Profile NOW?</h3>
+            <form method="post" action="{% url 'profile-delete' request.user.id %} " enctype="multipart/form-data">
+                <div class="row gtr-uniform">
+                    <div class="">
+                        {% csrf_token %}
+<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.first_name }}" />
+<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.last_name }}" />
+<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.dob }}" />
+<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.phone }}" />
 
-</body>
-</html>
+
+
+                    </div>
+                    <div class="col-12 col-12-xsmall">
+					<button type="submit" class="button large">Delete</button>
+			        </div>
+                </div>
+            </form>
+        </div>
+    <div class="col-6">
+            {% if profile.image_url %}
+                <h4>URL Image</h4>
+                <img src="{{ profile.image_url }}" alt="No Image Yet" width="300px" height="auto">
+            {% endif %}
+
+            {% if profile.image_local %}
+            <h4>Local Image</h4>
+                <img src="{{ profile.image_local.url }}" alt="No Image Yet" width="300px" height="auto">
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,18 +1,20 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
-from habibas_blog.accounts.forms import UserRegistrationForm, ProfileCreateForm
+from habibas_blog.accounts.forms import UserRegistrationForm, ProfileCreateForm, ProfileEditForm, ProfileDeleteForm
 from habibas_blog.accounts.models import Profile
 from habibas_blog.core.models import Comment
 
+UserModel = get_user_model()
 
 class UserRegistrationView(CreateView):
     form_class = UserRegistrationForm
@@ -37,9 +39,13 @@ def build_logout(request):
     # messages.info(request, 'LOG OUT SUCCESSFUL')
     return redirect('home')
 
+
 class ChangePasswordView(PasswordChangeView, LoginRequiredMixin):
     success_url = reverse_lazy('login')
 
+
+class ChangePasswordDoneView(PasswordChangeDoneView):
+    template_name = 'accounts/login.html'
 
 
 class ProfileDetailsView(DetailView):
@@ -62,7 +68,6 @@ class ProfileDetailsView(DetailView):
         return context
 
 
-
 class ProfileCreateView(CreateView):
     template_name = 'accounts/profile-create.html'
     model = Profile
@@ -74,3 +79,25 @@ class ProfileCreateView(CreateView):
         return super().form_valid(form)
 
 
+class ProfileEditView(UpdateView, LoginRequiredMixin):
+    model = Profile
+    template_name = 'accounts/profile-edit.html'
+    form_class = ProfileEditForm
+    context_object_name = 'profile'
+
+    def get_success_url(self):
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.user.id})
+
+
+class ProfileDeleteView(DeleteView, LoginRequiredMixin):
+    model = UserModel
+    template_name = 'accounts/profile-delete.html'
+    form_class = ProfileDeleteForm
+    success_url = reverse_lazy('home')
+    success_message = 'Deleted Successfully'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileDeleteView, self).get_context_data()
+        profile = Profile.objects.get(pk=self.request.user.id)
+        context['profile'] = profile
+        return context

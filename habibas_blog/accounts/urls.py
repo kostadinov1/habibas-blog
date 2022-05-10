@@ -1,7 +1,7 @@
 from django.urls import path
 
 from habibas_blog.accounts.views import UserRegistrationView, UserLoginView, build_logout, ProfileDetailsView, \
-    ProfileCreateView
+    ProfileCreateView, ProfileEditView, ProfileDeleteView
 
 urlpatterns = (
 
@@ -9,6 +9,9 @@ urlpatterns = (
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', build_logout, name='logout'),
     path('profile-details/<int:pk>/', ProfileDetailsView.as_view(), name='profile-details'),
-    path('profile-create/', ProfileCreateView.as_view(), name='profile-create')
+    path('profile-create/', ProfileCreateView.as_view(), name='profile-create'),
+    path('profile-edit/<int:pk>', ProfileEditView.as_view(), name='profile-edit'),
+    path('profile-delete/<int:pk>', ProfileDeleteView.as_view(), name='profile-delete'),
+
 
 )
