@@ -37,7 +37,6 @@ class GalleryView(ListView):
         return context
 
 
-
 def contacts_view(request):
     form = ContactForm()
     if request.method == 'POST':

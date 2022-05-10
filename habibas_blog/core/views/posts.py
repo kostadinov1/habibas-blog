@@ -10,6 +10,7 @@ from habibas_blog.core.models import Post, Comment, PostLike, CommentLike, BlogO
 class BlogView(ListView):
     template_name = 'core/index.html'
     model = Post
+    queryset = Post.objects.filter(status='1')
     context_object_name = 'posts'
     paginate_by = 2
 

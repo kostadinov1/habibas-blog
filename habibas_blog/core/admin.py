@@ -24,14 +24,14 @@ class PostLikeAdmin(admin.ModelAdmin):
     list_display = ('user', 'comment', 'created_on')
 
 
-
 @admin.register(BlogOwner)
 class BlogOwnerAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(OwnerArticle)
 class OwnerArticleAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'right', 'cover_image', 'created_on')
 
 
 @admin.register(ImageGallery)
