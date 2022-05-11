@@ -1,6 +1,8 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block main-content %}
 
+    <img src="{% static 'images/login_pic.png'%}" alt="">
 <section>
 	<h3>Login Here</h3>
 	<form method="post" action="{% url 'login' %}">
