@@ -3,30 +3,7 @@
 {% block main-content %}
 
 <link rel="stylesheet" href="{% static "/assets/css/profile-details.css" %}" />
-    <section>
-<!-- ALL COMMENTS -->
-<article class="post">
-    <div class="title">
-        <h2> COMMENTS </h2>
-    </div>
 
-    {% for comment in comments %}
-        {% if comment.active %}
-    <div class="row">
-        <div class="comment">
-        <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
-
-
-            <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
-
-        <p>{{ comment.content }}</p>
-        </div>
-    </div>
-        {% endif %}
-   {% endfor %}
-
-</article>
-    </section>
 <section>
     <div class="profile-card">
       <div class="top-section">
@@ -51,15 +28,8 @@
 
       <div class="bottom-section">
         <div class="social-media">
-        <a href="{% url 'profile-edit' request.user.id %}" class="button">Edit</a>
-        <a href="{% url 'profile-delete' request.user.id %}" class="button">Delete</a>
-
-
-{#          <a href="#" class="button fit small">Fit + Small</a>#}
-{#          <a href="#"><i class="fab fa-user-secret"></i></a>#}
-{#          <a href="#"><i class="fab fa-user-alt"></i></a>#}
-{#          <a href="#"><i class="fab fa-instagram"></i></a>#}
-{#          <a href="#"><i class="fas fa-link"></i></a>#}
+            <a href="{% url 'profile-edit' request.user.id %}" class="button">Edit</a>
+            <a href="{% url 'profile-delete' request.user.id %}" class="button">Delete</a>
         </div>
 
         <div class="videos">{{ comments_count }}<span>Comments</span></div>
@@ -70,5 +40,26 @@
       </div>
     </div>
 </section>
+<!-- ALL COMMENTS -->
+<article class="post">
+    <div class="title">
+        <h2> COMMENTS </h2>
+    </div>
 
+    {% for comment in comments %}
+        {% if comment.active %}
+    <div class="row">
+        <div class="comment">
+        <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
+
+
+            <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+
+        <p>{{ comment.content }}</p>
+        </div>
+    </div>
+        {% endif %}
+   {% endfor %}
+
+</article>
 {% endblock %}

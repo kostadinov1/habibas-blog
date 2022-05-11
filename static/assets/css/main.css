@@ -3493,8 +3493,13 @@ input, select, textarea {
 
 /* Footer */
 
+	#footer {
+    	width:100%;
+	}
+
 	#footer .icons {
 		color: #aaaaaa;
+
 	}
 
 	#footer .copyright {
@@ -3609,3 +3614,9 @@ input, select, textarea {
 			}
 
 		}
+#footer .icons {
+	margin: 50px;
+}
+#media-icons {
+	margin: 50px;
+}

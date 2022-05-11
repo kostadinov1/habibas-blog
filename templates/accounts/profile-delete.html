@@ -7,16 +7,13 @@
                 <div class="row gtr-uniform">
                     <div class="">
                         {% csrf_token %}
-<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.first_name }}" />
-<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.last_name }}" />
-<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.dob }}" />
-<input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.phone }}" />
-
-
-
+                        <input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.first_name }}" />
+                        <input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.last_name }}" />
+                        <input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.dob }}" />
+                        <input type="text" disabled name="demo-name" id="demo-name" value="" placeholder="{{ profile.phone }}" />
                     </div>
                     <div class="col-12 col-12-xsmall">
-					<button type="submit" class="button large">Delete</button>
+					<button id="deleteBtn" type="submit" class="button large">Delete</button>
 			        </div>
                 </div>
             </form>
@@ -33,4 +30,27 @@
             {% endif %}
     </div>
 </div>
+{#    <script>#}
+{#    delBtn = document.getElementById('deleteBtn')#}
+{#    delBtn.addEventListener('click' ,onDelete)#}
+{#    function onDelete(ev){#}
+{#    let confirmation = confirm("are you sure you want to remove the item?");#}
+{#    if (confirmation) {#}
+{#        let object_id = $(this).attr('data-object-id');#}
+{#        let url = `delete/${object_id}/`;#}
+{#        $.ajax({#}
+{#           url: "profile-delete/{{ request.user.id }}",#}
+{#           data: {#}
+{#               'csrfmiddlewaretoken': "{{ csrf_token }}"#}
+{#           },#}
+{#           type: "DELETE",#}
+{#           dataType: "json"#}
+{#         }).done(#}
+{#              function(){alert("Deleted");}#}
+{#            ).fail(#}
+{#              function(){alert("Error");}#}
+{#            )#}
+{#  }}#}
+{##}
+{#    </script>#}
 {% endblock %}

@@ -38,8 +38,19 @@
                                 <li><a href="{% url 'profile-create' %}">Profile</a></li>
                                     {% endif %}
                                 {% endif %}
-							</ul>
+
+                            </ul>
+
 						</nav>
+                        <nav >
+                            <ul class="icons ">
+                              <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                                <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email </span></a></li>
+                                <pre></pre>
+                        </ul>
+                        </nav>
 						<nav class="main">
 							<ul>
 								<li class="search">
@@ -116,13 +127,14 @@
 							</section>
 
 					</section>
-
-                <!-- Main content -->
+                <br><br><br>
+{{ request.last_viewed_posts }}
 
 {% block main-content %}
+                <!-- MAIN CONTENT -->
 
 {% endblock %}
-
+</div>
 <!-- Footer -->
 <section id="footer">
 	<ul class="icons">
@@ -135,7 +147,7 @@
 	<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
 </section>
 
-        </div>
+
 
 		<!-- Scripts -->
 			<script src="{% static "/assets/js/jquery.min.js" %}"></script>

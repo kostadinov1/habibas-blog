@@ -7,10 +7,10 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('content',)
-        widgets={
-            'content': forms.TextInput(
+        widgets = {
+            'content': forms.Textarea(
                 attrs={
-                    'rows': 6
+                    'rows': 3
                 }
             )
         }
