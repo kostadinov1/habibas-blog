@@ -129,6 +129,7 @@
 							</section>
 
 						<!-- Mini Posts -->
+                        {% if last_viewed_posts %}
 							<section>
                                 <h2>Recently Viewed</h2>
 
@@ -147,6 +148,7 @@
 								</div>
 							</section>
                                 {% endfor %}
+                        {% endif %}
 						<!-- Posts List -->
 {#							<section>#}
 {#								<ul class="posts">#}

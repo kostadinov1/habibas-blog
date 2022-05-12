@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block main-content %}
+    <img src="{% static 'images/register_pic_7.png'%}" alt="No image" width="auto" height="auto">
+
 <section>
 	<h3>Create Your Profile Here</h3>
 	<form method="post" action="{% url 'profile-create' %}" enctype="multipart/form-data">

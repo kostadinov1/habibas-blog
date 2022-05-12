@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block main-content %}
     <div class="row">
        <div class="col-6">
@@ -19,11 +20,16 @@
             {% if profile.image_url %}
                 <h4>URL Image</h4>
                 <img src="{{ profile.image_url }}" alt="No Image Yet" width="300px" height="auto">
+            {% else %}
+                 <h4>No URL Image Yet</h4>
+                <img src="{% static "images/avatar.png" %}" alt="No Image Yet" width="300px" height="auto">
             {% endif %}
-
             {% if profile.image_local %}
             <h4>Local Image</h4>
                 <img src="{{ profile.image_local.url }}" alt="No Image Yet" width="300px" height="auto">
+            {% else %}
+                <h4>No Local Image Yet</h4>
+                <img src="{% static "images/avatar.png" %}" alt="No Image Yet" width="300px" height="auto">
             {% endif %}
     </div>
 </div>

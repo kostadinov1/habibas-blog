@@ -19,8 +19,9 @@ class BlogView(ListView):
         context['owner'] = BlogOwner.objects.first()
 
         last_viewed_posts = self.request.session.get('last_viewed_posts')
-        lastly_viewed_posts = [Post.objects.get(pk=pk) for pk in last_viewed_posts]
-        context['last_viewed_posts'] = lastly_viewed_posts[:2]
+        if last_viewed_posts:
+            last_viewed_posts = [Post.objects.get(pk=pk) for pk in last_viewed_posts]
+            context['last_viewed_posts'] = last_viewed_posts[:2]
         return context
 
 def single_post_view(request, pk):
