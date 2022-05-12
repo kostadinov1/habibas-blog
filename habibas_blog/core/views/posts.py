@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import ListView
 
 from habibas_blog.core.forms import CommentForm
 from habibas_blog.core.models import Post, Comment, PostLike, CommentLike, BlogOwner
@@ -10,7 +10,9 @@ from habibas_blog.core.models import Post, Comment, PostLike, CommentLike, BlogO
 class BlogView(ListView):
     template_name = 'core/index.html'
     model = Post
-    queryset = Post.objects.filter(status='1')
+    published_posts = Post.objects.filter(status='1')
+    if published_posts:
+        queryset = published_posts
     context_object_name = 'posts'
     paginate_by = 2
 
@@ -94,5 +96,5 @@ def like_comment(request, pk):
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         post_pk = context['post']
-#         comments = Comment.objects.get(post_id=post_pk.pk)
+#         comments = Comment.objects.get(post_id=self.kwargs['pk'])
 #         context['comments'] = comments

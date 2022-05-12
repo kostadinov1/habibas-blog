@@ -67,6 +67,7 @@
 					</section>
 
 				<!-- Main -->
+                    {% if posts %}
 					<div id="main">
                         {% for post in posts %}
 						<!-- Post -->
@@ -115,13 +116,13 @@
                             </span>
 							</ul>
 					</div>
-
+                    {% endif %}
 				<!-- Sidebar -->
 					<section id="sidebar">
 
 						<!-- Intro -->
 							<section id="intro">
-								<a href="#" class="logo"><img src="{% static "images/logo.jpg" %}" alt="" /></a>
+								<a href="#" class="logo"><img src="{% static "images/logo.jpg" %}" alt="no logo" /></a>
 								<header>
 									<h2>Habiba's Blog</h2>
 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>

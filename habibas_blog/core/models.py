@@ -1,32 +1,50 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinLengthValidator
 from django.db import models
 
-# Create your models here.
+from habibas_blog.common.validators import validate_only_letters, MaxFileSizeInMbImageValidator
+
 UserModel = get_user_model()
 
 
 class BlogOwner(models.Model):
-    first_name = models.CharField(max_length=30,blank=True, null=True)
-    last_name = models.CharField(max_length=30,blank=True, null=True)
+    FIRST_NAME_MIN_LENGTH = 2
+    FIRST_NAME_MAX_LENGTH = 30
+    LAST_NAME_MIN_LENGTH = 2
+    LAST_NAME_MAX_LENGTH = 30
+
+    IMAGE_MAX_SIZE = 5
+
+    first_name = models.CharField(max_length=FIRST_NAME_MAX_LENGTH, blank=False, null=False,
+                                  validators=(MinLengthValidator(FIRST_NAME_MIN_LENGTH), validate_only_letters))
+    last_name = models.CharField(max_length=30,blank=False, null=False,
+                                 validators=(MinLengthValidator(LAST_NAME_MIN_LENGTH), validate_only_letters))
     url_image = models.URLField(blank=True, null=True)
-    local_image = models.ImageField(blank=True, null=True)
+    local_image = models.ImageField(blank=True, null=True, upload_to='owner_images',
+                                    validators=(MaxFileSizeInMbImageValidator(IMAGE_MAX_SIZE),))
 
     def full_name(self):
         return f'{self.first_name} {self.last_name}'
 
 
 class OwnerArticle(models.Model):
-    title = models.CharField(max_length=50)
-    image = models.URLField()
+    TITLE_MAX_LEN = 50
+
+    title = models.CharField(max_length=TITLE_MAX_LEN, null=False, blank=False)
+    image = models.URLField(null=True, blank=True)
     cover_image = models.BooleanField(default=False)
     right = models.BooleanField(default=True)
-    content = models.TextField()
+    content = models.TextField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
 
 class ImageGallery(models.Model):
-    title = models.CharField(max_length=50)
-    local_image = models.ImageField(blank=True, null=True, upload_to='images')
+    TITLE_MAX_LEN = 50
+    IMAGE_MAX_SIZE = 5
+
+    title = models.CharField(null=False, blank=False, max_length=TITLE_MAX_LEN)
+    local_image = models.ImageField(blank=True, null=True, upload_to='images',
+                                    validators=(MaxFileSizeInMbImageValidator(IMAGE_MAX_SIZE),))
     cover_image = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -36,15 +54,15 @@ class Post(models.Model):
         (0, "Draft"),
         (1, "Publish")
     )
+    TITLE_MAX_LEN = 200
 
-    title = models.CharField(max_length=200, unique=True)
-    catchy_title = models.TextField()
+    title = models.CharField(max_length=TITLE_MAX_LEN, unique=True, null=False, blank=False)
+    catchy_title = models.TextField(null=False, blank=False)
     image_url = models.URLField(blank=True, null=True)
-    updated_on = models.DateTimeField(auto_now= True)
-    content = models.TextField()
+    updated_on = models.DateTimeField(auto_now=True)
+    content = models.TextField(null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    # user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-created_on']
@@ -68,9 +86,9 @@ class PostLike(models.Model):
 
 
 class Comment(models.Model):
-    content = models.TextField()
-    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
-    user_id = models.ForeignKey(to=UserModel, on_delete=models.CASCADE,)
+    content = models.TextField(null=False, blank=False)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    user_id = models.ForeignKey(to=UserModel, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
 
@@ -84,5 +102,5 @@ class Comment(models.Model):
 
 class CommentLike(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='comment_likes')
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes', null=False, blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
