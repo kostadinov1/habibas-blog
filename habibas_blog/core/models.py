@@ -17,7 +17,7 @@ class BlogOwner(models.Model):
 
     first_name = models.CharField(max_length=FIRST_NAME_MAX_LENGTH, blank=False, null=False,
                                   validators=(MinLengthValidator(FIRST_NAME_MIN_LENGTH), validate_only_letters))
-    last_name = models.CharField(max_length=30,blank=False, null=False,
+    last_name = models.CharField(max_length=30, blank=False, null=False,
                                  validators=(MinLengthValidator(LAST_NAME_MIN_LENGTH), validate_only_letters))
     url_image = models.URLField(blank=True, null=True)
     local_image = models.ImageField(blank=True, null=True, upload_to='owner_images',

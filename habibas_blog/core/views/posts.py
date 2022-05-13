@@ -11,8 +11,7 @@ class BlogView(ListView):
     template_name = 'core/index.html'
     model = Post
     published_posts = Post.objects.filter(status='1')
-    if published_posts:
-        queryset = published_posts
+    queryset = published_posts
     context_object_name = 'posts'
     paginate_by = 2
 
@@ -84,9 +83,8 @@ def like_comment(request, pk):
         pass
     return redirect('single post', comment.post.pk)
 
-# self.object.post.id ????
+# old cb detail view
 
-# TODO HOW TO GET THE PK OF THE REQUESTED OBJECT IN DetailView ----> ?!?!?!
 # class SinglePostView(DetailView):
 #     model = Post
 #     template_name = 'core/single.html'

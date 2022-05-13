@@ -8,7 +8,7 @@ from habibas_blog.core.models import Post, ImageGallery, OwnerArticle
 
 class HomeView(ListView):
     template_name = 'core/home.html'
-    paginate_by = 6
+    paginate_by = 2
     model = OwnerArticle
     ordering = '-created_on'
     context_object_name = 'articles'
