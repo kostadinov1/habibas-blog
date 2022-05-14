@@ -9,7 +9,7 @@ UserModel = get_user_model()
 
 
 class TestProfileDetailsView(TestCase):
-
+    # SETUPS
     @staticmethod
     def __create_user():
         user = UserModel.objects.create_user(email='test@mail.com',
@@ -49,13 +49,19 @@ class TestProfileDetailsView(TestCase):
                                                   comment=comment)
         return comment_like
 
+    # ACTUAL TESTS
     def test_view_uses_correct_template(self):
         user = self.__create_user()
         response = self.client.post(reverse('profile-details', kwargs={'pk': user.id}))
         self.assertTemplateUsed('accounts/profile-details.html')
 
     def test_view_shows_correct_user(self):
-        pass
+        user = self.__create_user()
+        self.client.login(email='test@mail.com', password='4567gopnik')
+        profile = self.__create_profile(user)
+        response = self.client.get(reverse('profile-details', kwargs={'pk': user.id}))
+        profile_shown = response.context['profile']
+        self.assertEqual(profile_shown, profile)
 
     def test_profile_has_correct_comments_count(self):
         user = self.__create_user()
@@ -66,7 +72,6 @@ class TestProfileDetailsView(TestCase):
         profile_comments_count = len(Comment.objects.filter(user_id=user.id))
 
         self.assertEqual(profile_comments_count, 1)
-
 
     def test_profile_has_correct_comment_likes_count(self):
         user = self.__create_user()
@@ -80,5 +85,23 @@ class TestProfileDetailsView(TestCase):
         self.assertEqual(comment_likes_count, 1)
 
     def test_view_shows_correct_comments_in_section(self):
-        pass
+        user = self.__create_user()
+
+        self.client.login(email='test@mail.com', password='4567gopnik')
+        profile = self.__create_profile(user)
+        post = self.__create_post()
+        comment = self.__create_post_comment(post, user)
+
+        user_2 = UserModel.objects.create_user(email='test2@mail.com', password='456789gopnik')
+        profile_2 = Profile.objects.create(first_name='test',
+                                         last_name='testov',
+                                         dob='1988-12-12',
+                                         gender='male',
+                                         phone='1234534455',
+                                         user=user_2,)
+        comment_2 = Comment.objects.create(content='lorrem ipsum my dear i am a professional troll',
+                                         post=post,
+                                         user_id=user_2)
+        self.assertNotEqual(comment.user_id, comment_2.user_id)
+        self.assertEqual(comment.user_id, user)
 

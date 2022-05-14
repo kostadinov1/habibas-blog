@@ -30,35 +30,29 @@ class TestProfileEditView(TestCase):
         response = self.client.post(reverse('profile-edit', kwargs={'pk':user.id}))
         self.assertTemplateUsed('accounts/profile-edit.html')
 
+    def test_redirects_to_correct_template_on_success(self):
+        user = self.__create_user()
+        self.client.login(email='test@mail.com', password='4567gopnik')
+        profile = self.__create_profile(user)
+
+        response = self.client.post(reverse('profile-edit', kwargs={'pk': user.id}))
+        self.assertRedirects(response, 'accounts/profile-details.html')
+
+    def test_edit_profile_successfully(self):
+        user = self.__create_user()
+        self.client.login(email='test@mail.com', password='4567gopnik')
+        profile = self.__create_profile(user)
+        edited_profile = {'first_name': 'test',
+                          'last_name': 'testovski',
+                          'dob': '1988-12-12',
+                          'gender': 'male',
+                          'phone': '1234345345',
+                          'user': user,
+                          }
+
+        response = self.client.post(reverse('profile-edit', kwargs={'pk': profile.user.id}), data=edited_profile)
+        result = Profile.objects.get(pk=user.id)
+        # self.assertEqual(profile.last_name, 'testovski')
+        self.assertEqual(result.last_name, 'testovski')
 
 
-
-# TODO TEST THESE VIEWS CUZ THEY ARE NOT WORKING PROPERLY
-
-    # def test_redirects_to_correct_template_on_success(self):
-    #     user = self.__create_user()
-    #     self.client.login(email='test@mail.com', password='4567gopnik')
-    #     profile = self.__create_profile(user)
-    #
-    #     response = self.client.post(reverse('profile-edit', kwargs={'pk': user.id}))
-    #     self.assertRedirects(response, 'accounts/profile-details.html')
-    #
-    # def test_edit_profile_successfully(self):
-    #     user = self.__create_user()
-    #     self.client.login(email='test@mail.com', password='4567gopnik')
-    #     profile = self.__create_profile(user)
-    #     edited_profile = {'first_name': 'test',
-    #                       'last_name': 'testovski',
-    #                       'dob': '1988-12-12',
-    #                       'gender': 'male',
-    #                       'phone': '1234345345',
-    #                       'user': user,
-    #                       }
-    #
-    #     response = self.client.post(reverse('profile-edit', kwargs={'pk': profile.user.id}), data=edited_profile)
-    #     result = Profile.objects.get(pk=user.id)
-
-    #     # self.assertEqual(profile.last_name, 'testovski')
-    #     self.assertEqual(result.last_name, 'testovski')
-    #
-    #
