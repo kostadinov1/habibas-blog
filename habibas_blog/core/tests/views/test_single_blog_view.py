@@ -62,7 +62,7 @@ class TestSingleBlogView(TestCase):
         user = self.__create_user()
         self.client.login(email='test@mail.com', password='4567gopnik')
         profile = self.__create_profile(user)
-        post = self.__create_post()
+        post = self.__create_post('simple post title')
         comment = {'content': 'lorrem ipsum my dear i am a professional troll',
                    'post': post,
                    'user_id': user

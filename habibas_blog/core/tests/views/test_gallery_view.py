@@ -21,7 +21,7 @@ class TestGalleyView(TestCase):
         image_shown = response.context['images'][0]
         self.assertEqual(image_shown, images)
 
-    def test_gellery_user_correct_cover_imaege(self):
+    def test_gallery_user_correct_cover_image(self):
         images = ImageGallery.objects.create(title='image1',
                                              local_image=self.IMAGE,
                                              cover_image=True)
