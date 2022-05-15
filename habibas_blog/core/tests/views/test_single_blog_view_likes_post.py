@@ -7,6 +7,7 @@ from habibas_blog.core.models import Post, Comment, CommentLike
 
 UserModel = get_user_model()
 
+
 class SingleBlogViewPostLikes(TestCase):
 
     # SETUPS
