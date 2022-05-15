@@ -29,9 +29,12 @@ class BlogOwner(models.Model):
 
 class OwnerArticle(models.Model):
     TITLE_MAX_LEN = 50
+    IMAGE_MAX_SIZE = 5
 
     title = models.CharField(max_length=TITLE_MAX_LEN, null=False, blank=False)
     image = models.URLField(null=True, blank=True)
+    image_local = models.ImageField(blank=True, null=True, upload_to='articles_local_images',
+                                    validators=(MaxFileSizeInMbImageValidator(IMAGE_MAX_SIZE),))
     cover_image = models.BooleanField(default=False)
     right = models.BooleanField(default=True)
     content = models.TextField(null=False, blank=False)

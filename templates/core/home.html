@@ -8,18 +8,29 @@
 <section>
 	<h3>Welcome to My Blog</h3>
 	<h4>Learn more about me</h4>
-    <div class="col-12"><span class="image fit"><img src="{{ cover_image }}" alt="" /></span></div>
-
+    {% if cover_image.image_local %}
+    <div class="col-12"><span class="image fit"><img src="{{ cover_image.image_local.url }}" alt="No Image" /></span></div>
+    {% else %}
+    <div class="col-12"><span class="image fit"><img src="{{ cover_image.image }}" alt="No Image" /></span></div>
+    {% endif %}
 
 	<h4>Who am I?</h4>
     {% if articles %}
     {% for article in articles %}
         {% if article.right %}
         <h3>{{ article.title }}</h3>
-    <p><span class="image left"><img src="{{ article.image }}" alt="" /></span> {{ article.content }}</p>
+            {% if article.image_local %}
+                <p><span class="image left"><img src="{{ article.image_local.url }}" alt="No Image" /></span> {{ article.content }}</p>
+            {% else %}
+                <p><span class="image left"><img src="{{ article.image }}" alt="No Image" /></span> {{ article.content }}</p>
+        {% endif %}
         {% else %}
     <h3>{{ article.title }}</h3>
-    <p><span class="image right"><img src="{{ article.image }}" alt="" /></span>{{ article.content }}</p>
+            {% if article.image_local %}
+                <p><span class="image right"><img src="{{ article.image_local.url }}" alt="No Image" /></span>{{ article.content }}</p>
+            {% else %}
+                <p><span class="image right"><img src="{{ article.image }}" alt="No Image" /></span>{{ article.content }}</p>
+            {% endif %}
         {% endif %}
     {% endfor %}
     {% endif %}

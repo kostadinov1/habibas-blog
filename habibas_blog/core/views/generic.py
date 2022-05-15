@@ -17,7 +17,7 @@ class HomeView(ListView):
         cover_image = OwnerArticle.objects.filter(cover_image=True)
         context = super().get_context_data(**kwargs)
         if cover_image:
-            context['cover_image'] = cover_image[0].image
+            context['cover_image'] = cover_image[0]
         return context
 
 
