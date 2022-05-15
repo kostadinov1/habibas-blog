@@ -71,7 +71,6 @@ class SingleBlogViewCommentLikes(TestCase):
         comment_likes = comment.likes_count()
         self.assertEqual(comment_likes, 1)
 
-
     def test_correct_redirect_after_comment_like(self):
         user = self.__create_user()
         self.client.login(email='test@mail.com', password='4567gopnik')
