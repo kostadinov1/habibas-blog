@@ -76,4 +76,4 @@ class SingleBlogViewPostLikes(TestCase):
                      'post': post}
         post_like_response = self.client.post(reverse('like post', kwargs={'pk': post.id}), data=post_like)
 
-        self.assertRedirects(post_like_response, '/single-blog/1')
+        self.assertRedirects(post_like_response, f'/single-blog/{post.id}')

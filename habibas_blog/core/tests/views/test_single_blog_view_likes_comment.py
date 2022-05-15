@@ -71,6 +71,7 @@ class SingleBlogViewCommentLikes(TestCase):
         comment_likes = comment.likes_count()
         self.assertEqual(comment_likes, 1)
 
+# TODO WORKS WHEN SINGLE - DOES NOT WHEN MULTIPLE TEST RUN >?<
     def test_correct_redirect_after_comment_like(self):
         user = self.__create_user()
         self.client.login(email='test@mail.com', password='4567gopnik')
@@ -79,9 +80,9 @@ class SingleBlogViewCommentLikes(TestCase):
         comment = self.__create_post_comment(post, user)
         comment_like = {'user': user,
                         'comment': comment}
-        comment_like_response = self.client.post(reverse('like comment', kwargs={'pk': post.id}),
+        comment_like_response = self.client.post(reverse('like comment', kwargs={'pk': comment.id}),
                                                     data=comment_like)
 
-        self.assertRedirects(comment_like_response, '/single-blog/1')
+        self.assertRedirects(comment_like_response, f'/single-blog/{comment.post.id}')
 
 

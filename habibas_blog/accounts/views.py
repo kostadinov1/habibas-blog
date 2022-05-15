@@ -16,6 +16,7 @@ from habibas_blog.core.models import Comment
 
 UserModel = get_user_model()
 
+
 class UserRegistrationView(CreateView):
     form_class = UserRegistrationForm
     template_name = 'accounts/register.html'

@@ -53,7 +53,7 @@ class TestSingleBlogView(TestCase):
     # ACTUAL TESTS
 
     def test_view_shows_correct_post(self):
-        post = self.__create_post()
+        post = self.__create_post('simple post title')
         response = self.client.get(reverse('single post', kwargs={'pk': post.id}))
         post_shown = response.context['post']
         self.assertEqual(post_shown, post)
@@ -123,5 +123,5 @@ class TestSingleBlogView(TestCase):
                    'user_id': user
                    }
         response = self.client.post(reverse('single post', kwargs={'pk': post.id}), data=comment)
-        self.assertRedirects(response, '/single-blog/1')
+        self.assertRedirects(response, f'/single-blog/{post.id}')
 

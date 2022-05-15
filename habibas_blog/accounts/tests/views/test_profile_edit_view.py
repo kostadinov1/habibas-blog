@@ -30,13 +30,21 @@ class TestProfileEditView(TestCase):
         response = self.client.post(reverse('profile-edit', kwargs={'pk':user.id}))
         self.assertTemplateUsed('accounts/profile-edit.html')
 
+# TODO THIS ONE NEEDS TO HAVE ANOTHER LOOK
     def test_redirects_to_correct_template_on_success(self):
         user = self.__create_user()
         self.client.login(email='test@mail.com', password='4567gopnik')
         profile = self.__create_profile(user)
+        profile_data = {'first_name': 'test',
+                        'last_name': 'testovian',
+                        'dob': '1988-12-12',
+                        'gender': 'male',
+                        'phone': '1234345345',
+                        'user': user}
 
-        response = self.client.post(reverse('profile-edit', kwargs={'pk': user.id}))
-        self.assertRedirects(response, 'accounts/profile-details.html')
+        response = self.client.post(reverse('profile-edit', kwargs={'pk': user.id}),
+                                    data=profile_data)
+        self.assertRedirects(response, f'/profile-details/{profile.user.id}/')
 
     def test_edit_profile_successfully(self):
         user = self.__create_user()
@@ -50,9 +58,9 @@ class TestProfileEditView(TestCase):
                           'user': user,
                           }
 
-        response = self.client.post(reverse('profile-edit', kwargs={'pk': profile.user.id}), data=edited_profile)
-        result = Profile.objects.get(pk=user.id)
-        # self.assertEqual(profile.last_name, 'testovski')
+        response = self.client.post(reverse('profile-edit', kwargs={'pk': profile.user.id}),
+                                    data=edited_profile)
+        result = response.context['profile']
         self.assertEqual(result.last_name, 'testovski')
 
 
