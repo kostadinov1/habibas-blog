@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block main-content %}
+
+<section>
+    <div>
+        <h1>Something Went Wrong!!!</h1>
+        <a href="{% url 'home' %}" class="button">Go to Home Page</a>
+
+    </div>
+<img src="{% static 'images/flying-birds.png' %}" alt="No Image Yet" width="auto" height="auto">
+
+</section>
+
+
+{% endblock %}

@@ -102,3 +102,7 @@ class ProfileDeleteView(DeleteView, LoginRequiredMixin):
         profile = Profile.objects.get(pk=self.request.user.id)
         context['profile'] = profile
         return context
+
+
+def build_404_view(request):
+    return render(request, '404.html')
