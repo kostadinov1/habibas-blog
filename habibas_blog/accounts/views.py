@@ -27,6 +27,7 @@ class UserRegistrationView(CreateView):
         login(self.request, self.object)
         return result
 
+
 class UserLoginView(LoginView):
     template_name = 'accounts/login.html'
 
@@ -69,7 +70,7 @@ class ProfileDetailsView(DetailView):
         return context
 
 
-class ProfileCreateView(CreateView):
+class ProfileCreateView(CreateView, LoginRequiredMixin):
     template_name = 'accounts/profile-create.html'
     model = Profile
     form_class = ProfileCreateForm
@@ -104,5 +105,6 @@ class ProfileDeleteView(DeleteView, LoginRequiredMixin):
         return context
 
 
-def build_404_view(request):
+def build_404_view(request, exception):
+
     return render(request, '404.html')
