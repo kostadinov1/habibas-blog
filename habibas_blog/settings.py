@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import cloudinary
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,6 +26,10 @@ INSTALLED_APPS = [
 
     'habibas_blog.accounts',
     'habibas_blog.core',
+
+    # 'cloudinary_storage',
+    # 'django.contrib.staticfiles',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -112,7 +117,15 @@ MEDIA_DIRS = [
     BASE_DIR / 'mediafiles'
 ]
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.AppUser'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': config("CLOUDINARY_API_KEY"),
+    'API_SECRET': config("CLOUDINARY_API_SECRET")
+}

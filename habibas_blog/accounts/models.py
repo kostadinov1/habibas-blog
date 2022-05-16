@@ -9,6 +9,7 @@ from django.db.models.signals import post_save
 
 from habibas_blog.accounts.managers import AppUsersManager
 from habibas_blog.common.validators import validate_only_letters, MaxFileSizeInMbImageValidator
+from cloudinary import models as cloudinary_models
 
 
 class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
@@ -44,7 +45,6 @@ class Profile(models.Model):
     image_local = models.ImageField(blank=True, null=True, upload_to='profile_images',
                                     validators=(MaxFileSizeInMbImageValidator(IMAGE_MAX_SIZE),))
     image_url = models.URLField(blank=True, null=True)
-    # image = cloudinary_models.CloudinaryField('image', blank=True, null=True)
     user = models.OneToOneField(AppUser, on_delete=models.CASCADE, primary_key=True,)
 
     def __str__(self):
