@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 # import cloudinary
+import dj_database_url
+import psycopg2
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +28,7 @@ INSTALLED_APPS = [
 
     'habibas_blog.accounts',
     'habibas_blog.core',
+    "whitenoise.runserver_nostatic",
 
     # 'cloudinary_storage',
     # 'django.contrib.staticfiles',
@@ -34,6 +37,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,6 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+if APP_ENVIRONMENT == 'Production':
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+    DATABASE_URL = os.environ['DATABASE_URL']
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -107,9 +119,9 @@ BASE_DIR_2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # STATIC_ROOT = '/tmp/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR_2, 'static'),
 )
 
 MEDIA_URL = '/media/'
@@ -118,8 +130,9 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 MEDIA_DIRS = [
     BASE_DIR / 'mediafiles'
 ]
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 AUTH_USER_MODEL = 'accounts.AppUser'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

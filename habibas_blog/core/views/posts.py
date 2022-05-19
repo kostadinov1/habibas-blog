@@ -92,17 +92,3 @@ def like_comment(request, pk):
     else:
         pass
     return redirect('single post', comment.post.pk)
-
-# old cb detail view
-
-# class SinglePostView(DetailView):
-#     model = Post
-#     template_name = 'core/single.html'
-#     context_object_name = 'post'
-#
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         post_pk = context['post']
-#         comments = Comment.objects.get(post_id=self.kwargs['pk'])
-#         context['comments'] = comments

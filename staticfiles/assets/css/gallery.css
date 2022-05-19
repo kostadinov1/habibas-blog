@@ -1,0 +1,25 @@
+
+
+.gallery {
+    margin: 10px 50px;
+}
+
+
+
+.gallery img {
+    transition: 1s;
+    padding: 15px;
+    width: 200px;
+    height: auto;
+}
+
+.gallery img:hover {
+    filter: grayscale(70%);
+    transform: scale(1.1);
+}
+
+/*.images section{*/
+/*    display: flex;*/
+/*    flex-basis: 80px;*/
+/*    justify-content: center;*/
+/*}*/
