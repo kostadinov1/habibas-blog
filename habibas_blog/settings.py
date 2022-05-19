@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-import cloudinary
+# import cloudinary
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -104,14 +104,16 @@ USE_I18N = True
 USE_TZ = True
 BASE_DIR_2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# STATIC_ROOT = '/tmp/staticfiles/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
 MEDIA_URL = '/media/'
+# MEDIA_ROOT = '/home/ec2-user/app/mediafiles/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 MEDIA_DIRS = [
     BASE_DIR / 'mediafiles'
@@ -120,7 +122,6 @@ MEDIA_DIRS = [
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.AppUser'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -128,4 +129,6 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config("CLOUDINARY_CLOUD_NAME"),
     'API_KEY': config("CLOUDINARY_API_KEY"),
     'API_SECRET': config("CLOUDINARY_API_SECRET")
+
 }
+CLOUDINARY_URL = config('CLOUDINARY_URL')

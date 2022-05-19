@@ -9,7 +9,6 @@ from django.db.models.signals import post_save
 
 from habibas_blog.accounts.managers import AppUsersManager
 from habibas_blog.common.validators import validate_only_letters, MaxFileSizeInMbImageValidator
-from cloudinary import models as cloudinary_models
 
 
 class AppUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
