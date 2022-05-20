@@ -18,39 +18,17 @@
                 </div>
             </form>
         </div>
-    <div class="col-6">
-            {% if profile.image_url %}
-                <h4>URL Image</h4>
-                <img src="{{ profile.image_url }}" alt="No Image Yet" width="300px" height="auto">
-            {% endif %}
+        <div class="col-6">
+                {% if profile.image_url %}
+                    <h4>URL Image</h4>
+                    <img src="{{ profile.image_url }}" alt="No Image Yet" width="300px" height="auto">
+                {% endif %}
 
-            {% if profile.image_local %}
-            <h4>Local Image</h4>
-                <img src="{{ profile.image_local.url }}" alt="No Image Yet" width="300px" height="auto">
-            {% endif %}
+                {% if profile.image_local %}
+                    <h4>Local Image</h4>
+                    <img src="{{ profile.image_local.url }}" alt="No Image Yet" width="300px" height="auto">
+                {% endif %}
+        </div>
     </div>
-</div>
-{#    <script>#}
-{#    delBtn = document.getElementById('deleteBtn')#}
-{#    delBtn.addEventListener('click' ,onDelete)#}
-{#    function onDelete(ev){#}
-{#    let confirmation = confirm("are you sure you want to remove the item?");#}
-{#    if (confirmation) {#}
-{#        let object_id = $(this).attr('data-object-id');#}
-{#        let url = `delete/${object_id}/`;#}
-{#        $.ajax({#}
-{#           url: "profile-delete/{{ request.user.id }}",#}
-{#           data: {#}
-{#               'csrfmiddlewaretoken': "{{ csrf_token }}"#}
-{#           },#}
-{#           type: "DELETE",#}
-{#           dataType: "json"#}
-{#         }).done(#}
-{#              function(){alert("Deleted");}#}
-{#            ).fail(#}
-{#              function(){alert("Error");}#}
-{#            )#}
-{#  }}#}
-{##}
-{#    </script>#}
+
 {% endblock %}

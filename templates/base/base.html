@@ -14,10 +14,8 @@
 		<link rel="stylesheet" href="{% static "/assets/css/main.css" %}" />
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="{% url 'home' %}">Habiba's Blog</a></h1>
@@ -38,16 +36,15 @@
                                 <li><a href="{% url 'profile-create' %}">Profile</a></li>
                                     {% endif %}
                                 {% endif %}
-
                             </ul>
-
 						</nav>
-                        <nav >
+
+                        <nav>
                             <ul class="icons ">
                               <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
                                 <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
                                 <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-                                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email </span></a></li>
+{#                                <li><a href="#" class="icon solid fa-envelope"><span class="label">Email </span></a></li>#}
                                 <pre></pre>
                         </ul>
                         </nav>
@@ -66,7 +63,6 @@
 						</nav>
 					</header>
             <section id="menu">
-
 						<!-- Search -->
 							<section>
 								<form class="search" method="get" action="#">
@@ -137,31 +133,31 @@
 
 					</section>
 
-{% block main-content %}
-                <!-- MAIN CONTENT -->
+                    {% block main-content %}
+                        <!-- MAIN CONTENT -->
+                    {% endblock %}
 
-{% endblock %}
-</div>
-<!-- Footer -->
-<section id="footer">
-	<ul class="icons">
-		<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-		<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-		<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-		<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-		<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-	</ul>
-	<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-</section>
+                    </div>
+                    <!-- Footer -->
+                    <section id="footer">
+                        <ul class="icons">
+                            <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+                            <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+                            <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+                            <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
+                            <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                        </ul>
+                        <p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+                    </section>
 
 
 
-		<!-- Scripts -->
-			<script src="{% static "/assets/js/jquery.min.js" %}"></script>
-			<script src="{% static "/assets/js/browser.min.js" %}"></script>
-			<script src="{% static "/assets/js/breakpoints.min.js" %}"></script>
-			<script src="{% static "/assets/js/util.js" %}"></script>
-			<script src="{% static "/assets/js/main.js" %}"></script>
+<!-- Scripts -->
+<script src="{% static "/assets/js/jquery.min.js" %}"></script>
+<script src="{% static "/assets/js/browser.min.js" %}"></script>
+<script src="{% static "/assets/js/breakpoints.min.js" %}"></script>
+<script src="{% static "/assets/js/util.js" %}"></script>
+<script src="{% static "/assets/js/main.js" %}"></script>
 
 	</body>
 </html>

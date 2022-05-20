@@ -6,13 +6,12 @@
 	<h3>Register Now</h3>
 	<form method="post" action="{% url 'register' %}">
 		<div class="row gtr-uniform">
-            {% csrf_token %}
+                {% csrf_token %}
 			<div class="col-6 col-12-xsmall">
                 {{ form }}
 			</div>
-
 			<div class="col-12">
-					<button type="submit">Register</button>
+				<button type="submit">Register</button>
 			</div>
 		</div>
 	</form>

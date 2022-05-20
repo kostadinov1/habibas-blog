@@ -1,6 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
 from habibas_blog.core.models import Post, Comment, PostLike, BlogOwner, ImageGallery, CommentLike, OwnerArticle
 
 

@@ -1,15 +1,10 @@
 from django.contrib.auth import login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
-from django.http import Http404
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
-
 from habibas_blog.accounts.forms import UserRegistrationForm, ProfileCreateForm, ProfileEditForm, ProfileDeleteForm
 from habibas_blog.accounts.models import Profile
 from habibas_blog.core.models import Comment
@@ -38,7 +33,6 @@ class UserLoginView(LoginView):
 @login_required
 def build_logout(request):
     logout(request)
-    # messages.info(request, 'LOG OUT SUCCESSFUL')
     return redirect('home')
 
 
@@ -61,8 +55,7 @@ class ProfileDetailsView(DetailView):
         comments_count = len(comments)
         likes_count = 0
         for comment in comments:
-           likes_count += comment.likes_count()
-        # likes_count = sum(int(comment.likes_count) for comment in comments)
+            likes_count += comment.likes_count()
 
         context['likes_count'] = likes_count
         context['comments_count'] = comments_count
@@ -106,5 +99,4 @@ class ProfileDeleteView(DeleteView, LoginRequiredMixin):
 
 
 def build_404_view(request, exception):
-
     return render(request, '404.html')

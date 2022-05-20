@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-# import cloudinary
+import cloudinary
 import dj_database_url
 import psycopg2
 from decouple import config
@@ -28,16 +28,12 @@ INSTALLED_APPS = [
 
     'habibas_blog.accounts',
     'habibas_blog.core',
-    "whitenoise.runserver_nostatic",
 
-    # 'cloudinary_storage',
-    # 'django.contrib.staticfiles',
     'cloudinary',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -116,7 +112,7 @@ USE_I18N = True
 USE_TZ = True
 BASE_DIR_2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# STATIC_ROOT = '/tmp/staticfiles/'
+# STATIC_ROOT = '/tmp/staticfiles/'  ===> ec2 only
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = 'static/'
@@ -125,14 +121,12 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = '/home/ec2-user/app/mediafiles/'
+# MEDIA_ROOT = '/home/ec2-user/app/mediafiles/'  ==> ec2 only
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 MEDIA_DIRS = [
     BASE_DIR / 'mediafiles'
 ]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 AUTH_USER_MODEL = 'accounts.AppUser'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

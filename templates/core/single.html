@@ -1,143 +1,83 @@
-
 {% extends 'base/base.html' %}
 {% load static %}
 {% block main-content %}
-        <link rel="stylesheet" href="{% static "assets/css/comment.css" %}">
-				<!-- Menu -->
-					<section id="menu">
 
-						<!-- Search -->
-							<section>
-								<form class="search" method="get" action="#">
-									<input type="text" name="query" placeholder="Search" />
-								</form>
-							</section>
-
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
-
-						<!-- Actions -->
-							<section>
-								<ul class="actions stacked">
-									<li><a href="#" class="button large fit">Log In</a></li>
-								</ul>
-							</section>
-
-					</section>
-
-				<!-- Main -->
-					<div id="main">
-
-
-                            <!-- POST -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">{{ post.title }}</a></h2>
-										<p>{{ post.catchy_title }}</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-11-01">{{ post.created_on }}</time>
-										<a href="#" class="author"><span class="name">{{ owner.first_name }} {{ owner.last_name }}</span><img src="{{ owner.url_image }}" alt="" /></a>
-									</div>
-                                </header>
-
-
-								<a href="{% url 'single post' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
-								<p>{{ post.content }} </p>
-                                    {% if user.is_authenticated %}
-                                    <footer>
-									<ul class="stats">
-										<li><a href="{% url 'blog' %}">Go Back to Blog</a></li>
-                                        {% if post_liked %}
-										<li><a href="javascript:void(0)" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
-                                        {% else %}
-                                        <li><a href="{% url 'like post' post.pk %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
-                                        {% endif %}
-										<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
-									</ul>
-								</footer>
-                                {% else %}
-                                   <footer>
-									<ul class="stats">
-                                        <li><a href="{% url 'login' %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
-										<li><a href="{% url 'login' %}" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
-									</ul>
-								</footer>
-                                {% endif %}
-							</article>
-                        <!-- ADD COMMENT -->
-                            {% if user.is_authenticated %}
-							<article class="post">
-                                <div class="title">
-                                    <h2> Add a Comment</h2>
-                                </div>
-                                <form method="post" action="{% url 'single post' post.id %}">
-                                    {% csrf_token %}
-                                    {{ form }}
-                                    <button type="submit">Add Your Comment</button>
-                                </form>
-                            </article>
+<link rel="stylesheet" href="{% static "assets/css/comment.css" %}">
+<!-- Main -->
+<div id="main">
+        <!-- POST -->
+		<article class="post">
+			<header>
+				<div class="title">
+					<h2><a href="javascript:void(0)">{{ post.title }}</a></h2>
+					<p>{{ post.catchy_title }}</p>
+				</div>
+				<div class="meta">
+					<time class="published" datetime="2015-11-01">{{ post.created_on }}</time>
+					<a href="#" class="author"><span class="name">{{ owner.first_name }} {{ owner.last_name }}</span><img src="{{ owner.url_image }}" alt="" /></a>
+				</div>
+            </header>
+			<a href="{% url 'single post' post.id %}" class="image featured"><img src="{{ post.image_url }}" alt="" /></a>
+			<p>{{ post.content }} </p>
+            {% if user.is_authenticated %}
+            <footer>
+				<ul class="stats">
+					<li><a href="{% url 'blog' %}">Go Back to Blog</a></li>
+                    {% if post_liked %}
+					    <li><a href="javascript:void(0)" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+                    {% else %}
+                        <li><a href="{% url 'like post' post.pk %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+                    {% endif %}
+					<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
+				</ul>
+			</footer>
+            {% else %}
+                <footer>
+				<ul class="stats">
+                    <li><a href="{% url 'login' %}" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
+					<li><a href="{% url 'login' %}" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
+				</ul>
+			</footer>
+            {% endif %}
+		</article>
+        <!-- ADD COMMENT -->
+        {% if user.is_authenticated %}
+		<article class="post">
+            <div class="title">
+            <h2> Add a Comment</h2>
+            </div>
+                <form method="post" action="{% url 'single post' post.id %}">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit">Add Your Comment</button>
+                </form>
+        </article>
+        {% endif %}
+        <!-- ALL COMMENTS -->
+        <article class="post">
+            <div class="title">
+            <h2> COMMENTS </h2>
+            </div>
+            {% for comment in comments %}
+            {% if comment.active %}
+                <div class="row">
+                    <div class="comment">
+                        <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
+                        {% if user.is_authenticated %}
+                            {% if user == comment.user %}
+                                <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                            {% else %}
+                                <a href="{% url 'like comment' comment.id %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
                             {% endif %}
-
-
-                        <!-- ALL COMMENTS -->
-                            <article class="post">
-                                <div class="title">
-                                    <h2> COMMENTS </h2>
-                                </div>
-
-                                {% for comment in comments %}
-                                    {% if comment.active %}
-                                <div class="row">
-                                    <div class="comment">
-                                    <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
-
-                                        {% if user.is_authenticated %}
-                                            {% if user == comment.user %}
-                                            <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
-                                            {% else %}
-                                            <a href="{% url 'like comment' comment.id %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
-                                            {% endif %}
-                                        {% else %}
-                                        <a href="{% url 'login' %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
-                                         {% endif %}
-
-                                    <p>{{ comment.content }}</p>
-                                    </div>
-                                </div>
-                                    {% endif %}
-                               {% endfor %}
-
-                            </article>
-					</div>
-
+                        {% else %}
+                            <a href="{% url 'login' %}" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
+                        {% endif %}
+                        <p>{{ comment.content }}</p>
+                    </div>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </article>
+</div>
 
 {% endblock %}

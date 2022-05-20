@@ -1,9 +1,7 @@
 from datetime import datetime
-
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-
 from habibas_blog.accounts.models import Profile
 from habibas_blog.common.mixins import DisabledFieldsFormMixin
 
@@ -22,7 +20,6 @@ class UserChangeAdminForm(UserChangeForm):
     class Meta:
         model = UserModel
         fields =('email',)
-
 
 
 class ProfileCreateForm(forms.ModelForm):
@@ -51,7 +48,6 @@ class ProfileEditForm(forms.ModelForm):
                 years= YEARS_CHOICES,
             ),
         }
-
 
 
 class ProfileDeleteForm(forms.ModelForm, DisabledFieldsFormMixin):

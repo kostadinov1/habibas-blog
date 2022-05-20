@@ -24,7 +24,10 @@ class BlogView(ListView):
 
         last_viewed_posts = self.request.session.get('last_viewed_posts')
         if last_viewed_posts:
-            last_viewed_posts = [Post.objects.get(pk=pk) for pk in last_viewed_posts]
+            unique_viewed_posts = []
+            _ = [unique_viewed_posts.append(post) for post in last_viewed_posts
+                                 if post not in unique_viewed_posts]
+            last_viewed_posts = [Post.objects.get(pk=pk) for pk in unique_viewed_posts]
             context['last_viewed_posts'] = last_viewed_posts[:2]
         return context
 
@@ -39,11 +42,13 @@ def single_post_view(request, pk):
     comments = list(Comment.objects.filter(post_id=post.pk))
     like = list(PostLike.objects.filter(post_id=post.pk, user_id=request.user.id))
     post_liked = len(like) > 0
-    # middleware helper
+
+    # Middleware helper
     viewed_posts = request.session.get('last_viewed_posts', [])
     viewed_posts.insert(0, pk)
     request.session['last_viewed_posts'] = viewed_posts[:4]
 
+    # Comment Form
     if request.method == 'POST':
         form = CommentForm(request.POST)
         try:
@@ -59,6 +64,7 @@ def single_post_view(request, pk):
             return redirect('single post', post.pk)
     else:
         form = CommentForm()
+
     context = {
         'owner': owner,
         'post_liked': post_liked,

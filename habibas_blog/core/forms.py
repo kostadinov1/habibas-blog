@@ -1,5 +1,4 @@
 from django import forms
-
 from habibas_blog.core.models import Comment
 
 

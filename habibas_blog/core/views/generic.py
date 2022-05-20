@@ -1,9 +1,8 @@
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, DetailView, ListView
-
+from django.views.generic import ListView
 from habibas_blog.core.forms import ContactForm
-from habibas_blog.core.models import Post, ImageGallery, OwnerArticle
+from habibas_blog.core.models import ImageGallery, OwnerArticle
 
 
 class HomeView(ListView):

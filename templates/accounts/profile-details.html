@@ -3,7 +3,6 @@
 {% block main-content %}
 
 <link rel="stylesheet" href="{% static "/assets/css/profile-details.css" %}" />
-
 <section>
     <div class="profile-card">
       <div class="top-section">
@@ -31,12 +30,9 @@
             <a href="{% url 'profile-edit' request.user.id %}" class="button">Edit</a>
             <a href="{% url 'profile-delete' request.user.id %}" class="button">Delete</a>
         </div>
-
         <div class="videos">{{ comments_count }}<span>Comments</span></div>
         <div class="border"></div>
         <div class="subscribers">{{ likes_count }} <span>Likes</span></div>
-{#        <div class="border"></div>#}
-{#        <div class="views">500k <span>Views</span></div>#}
       </div>
     </div>
 </section>
@@ -45,21 +41,16 @@
     <div class="title">
         <h2> COMMENTS </h2>
     </div>
-
     {% for comment in comments %}
         {% if comment.active %}
     <div class="row">
         <div class="comment">
         <h4 class="comment-content">Username: {{ comment.user_id.profile }}</h4><h5 class="comment-content">date: {{ comment.created_on }}</h5>
-
-
             <a href="javascript:void(0)" class="icon solid fa-heart like-button">{{ comment.likes_count }}</a>
-
         <p>{{ comment.content }}</p>
         </div>
     </div>
         {% endif %}
    {% endfor %}
-
 </article>
 {% endblock %}

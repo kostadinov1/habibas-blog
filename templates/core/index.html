@@ -85,7 +85,6 @@
 					<li><a href="{% url 'single post' post.pk %}" class="button large">Continue Reading</a></li>
 				</ul>
 				<ul class="stats">
-							<li><a href="#">General</a></li>#}
 					<li><a href="javascript:void(0)" class="icon solid fa-heart">{{ post.likes_count }}</a></li>
 					<li><a href="javascript:void(0)" class="icon solid fa-comment">{{ post.comments_count }}</a></li>
 				</ul>
@@ -121,10 +120,10 @@
 			</header>
 		</section>
 	<!-- Mini Posts -->
-                   {% if last_viewed_posts %}
+        {% if last_viewed_posts %}
 		<section>
-                           <h2>Recently Viewed</h2>
-                           {% for post in last_viewed_posts %}
+        <h2>Recently Viewed</h2>
+        {% for post in last_viewed_posts %}
 			<div class="mini-posts">
 				<!-- Mini Post -->
 					<article class="mini-post">
@@ -137,7 +136,7 @@
 					</article>
 			</div>
 		</section>
-                           {% endfor %}
-                   {% endif %}
+        {% endfor %}
+        {% endif %}
 </section>
 {% endblock %}

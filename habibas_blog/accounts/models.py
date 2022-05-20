@@ -1,12 +1,6 @@
-
-# from cloudinary import models as cloudinary_models
-import datetime
-
 from django.contrib.auth import models as auth_models, get_user_model
 from django.core.validators import MinLengthValidator
 from django.db import models
-from django.db.models.signals import post_save
-
 from habibas_blog.accounts.managers import AppUsersManager
 from habibas_blog.common.validators import validate_only_letters, MaxFileSizeInMbImageValidator
 

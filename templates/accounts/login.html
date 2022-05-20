@@ -2,18 +2,17 @@
 {% load static %}
 {% block main-content %}
 
-    <img src="{% static 'images/login_pic.png'%}" alt="">
+<img src="{% static 'images/login_pic.png'%}" alt="">
 <section>
 	<h3>Login Here</h3>
 	<form method="post" action="{% url 'login' %}">
 		<div class="row gtr-uniform">
-            {% csrf_token %}
+                {% csrf_token %}
 			<div class="col-6 col-12-xsmall">
                 {{ form }}
 			</div>
-
 			<div class="col-12">
-					<button type="submit">Login</button>
+			    <button type="submit">Login</button>
 			</div>
 		</div>
 	</form>
